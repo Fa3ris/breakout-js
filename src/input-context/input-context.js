@@ -1,18 +1,15 @@
 export class InputContext {
 
-    active;
-    delegate;
-
-    constructor() {
-
-    }
+    
+    constructor() {}
 
 
     mapRawInput(rawInput) {
+
         if (this.active) {
 
             // try to map
-            const mappedInput = _map(rawInput);
+            const mappedInput = this._map(rawInput);
 
             if (mappedInput) {
                 return mappedInput;
@@ -32,7 +29,7 @@ export class InputContext {
      * map a rawInput to a normalized input
      * @param {*} rawInput 
      */
-    _map(rawInput) {
+     _map(rawInput) {
         throw new Error('must implement _map');
     }
 

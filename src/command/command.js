@@ -1,4 +1,4 @@
-export class Action {
+export class Command {
 
     constructor(target, event) {
         this.target = target;

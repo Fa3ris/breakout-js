@@ -1,18 +1,22 @@
-import conf from '../conf.js';
+import conf from '../../conf.js';
 
 export class Game {
 
     constructor(ctx, handler) {
         this.ctx = ctx;
         this.handler = handler;
+
+        this.gameState;
+        this.entities;
+    }
+
+    initRenderer() {
+        this.canvas = document.createElement('canvas');
+        this.ctx = this.canvas.getContext('2d');
     }
 
     init() {
         this.a = 'hello';
-    }
-
-    initRenderer() {
-
     }
 
     initEntities() {

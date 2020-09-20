@@ -1,6 +1,6 @@
-import { Action } from "../action.js";
+import { Command } from "../command.js";
 
-export class Stop extends Action {
+export class Stop extends Command {
 
     constructor(target, event) {
         super(target, event);

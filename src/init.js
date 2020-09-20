@@ -2,7 +2,7 @@ import { Ball } from './model/ball.js';
 import { Paddle } from './model/paddle.js';
 import { Handler } from './handler/handler.js';
 import { PaddleHandler } from './handler/paddleHandler.js';
-import conf from './conf.js';
+import conf from './configuration/conf.js';
 import { ResetHandler } from './handler/resetHandler.js';
 import { Game } from './model/game.js';
 

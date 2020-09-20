@@ -1,4 +1,4 @@
-import conf from '../conf.js';
+import conf from '../configuration/conf.js';
 
 export class Handler {
 

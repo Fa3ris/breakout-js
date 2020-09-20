@@ -1,7 +1,7 @@
-import { MoveLeft } from "./action/move/moveLeft.js";
-import { MoveRight } from "./action/move/moveRight.js";
-import { Stop } from "./action/move/stop.js";
-import conf from '../conf.js'
+import { MoveLeft } from "../command/move/moveLeft.js";
+import { MoveRight } from "../command/move/moveRight.js";
+import { Stop } from "../command/move/stop.js";
+import conf from '../configuration/conf.js'
 
 
 export class PaddleHandler {

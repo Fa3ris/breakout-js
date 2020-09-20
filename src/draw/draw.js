@@ -1,5 +1,5 @@
 import { ctx, ball, paddle} from '../init.js';
-import conf from '../conf.js'
+import conf from '../configuration/conf.js'
 
 export function draw() {
     ctx.clearRect(0, 0, conf.WIDTH, conf.HEIGHT);

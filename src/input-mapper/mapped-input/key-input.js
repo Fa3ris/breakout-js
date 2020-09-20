@@ -4,9 +4,11 @@ export class KeyInput extends MappedInput {
     
     constructor(event, label) {
 
-        this.type = 'keyinput';
         // original event
         super(event);
+
+        this.type = 'key-input';
+        
         // context-dependent action
         this.label = label;
     }
