@@ -1,14 +1,12 @@
-import { game } from './init.js'
-import { Game } from './model/game.js';
+import { Game } from './entity/game/game.js';
 
 
 (function () {
 
+    let game;
+
     function init() {
-        const g = new Game();
-        g.init();
-        g.loga();
-        game.draw();
+        game = new Game();
         main();
     }
 

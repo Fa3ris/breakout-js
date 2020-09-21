@@ -1,4 +1,4 @@
-import conf from '../conf.js';
+import conf from '/src/configuration/conf.js';
 
 export class Paddle {
 
@@ -26,7 +26,7 @@ export class Paddle {
         this.dt = 1;
 
         this.friction = .9;
-       
+
     }
 
     static reset() {
@@ -71,11 +71,11 @@ export class Paddle {
 
     draw(ctx) {
         ctx.save();
-    ctx.beginPath();
-    ctx.rect(this.x, this.y, this.w, this.h);
-    ctx.fillStyle = this.color;
-    ctx.fill();
-    ctx.closePath();
-    ctx.save();
+        ctx.beginPath();
+        ctx.rect(this.x, this.y, this.w, this.h);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        ctx.closePath();
+        ctx.restore();
     }
 }

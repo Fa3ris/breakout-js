@@ -1,35 +1,33 @@
-import conf from '../../conf.js';
+import conf from '/src/configuration/conf.js';
+import { Ball } from '../ball/ball.js';
+import { Paddle } from '../paddle/paddle.js';
 
 export class Game {
 
-    constructor(ctx, handler) {
-        this.ctx = ctx;
-        this.handler = handler;
+    constructor() {
 
         this.gameState;
         this.entities;
+
+        this.initEntities();
+        this.initRenderer();
     }
 
     initRenderer() {
         this.canvas = document.createElement('canvas');
         this.ctx = this.canvas.getContext('2d');
-    }
 
-    init() {
-        this.a = 'hello';
+        this.canvas.width = conf.WIDTH;
+        this.canvas.height = conf.HEIGHT;
+        document.body.appendChild(this.canvas);
     }
 
     initEntities() {
-        
-        
+
         let ball = new Ball(conf.BALL_RADIUS, conf.BALL_COLOR);
         let paddle = new Paddle(conf.PADDLE_WIDTH, conf.PADDLE_HEIGHT, conf.PADDLE_COLOR);
-        
-        this.entities = new Array(ball,paddle);
-    }
 
-    loga() {
-        console.log(this.a);
+        this.entities = new Array(ball, paddle);
     }
 
     update() {
@@ -43,12 +41,12 @@ export class Game {
 
         this.entities.forEach(element => {
             element.draw(this.ctx);
-        });
+        }, this);
     }
 
     reset() {
         this.entities.forEach(element => {
-           element =  element.constructor.reset();
+            element.reset();
         });
     }
 

@@ -1,10 +1,10 @@
-import { Ball } from './model/ball.js';
-import { Paddle } from './model/paddle.js';
+import { Ball } from './entity/ball/ball.js';
+import { Paddle } from './entity/paddle/paddle.js';
 import { Handler } from './handler/handler.js';
 import { PaddleHandler } from './handler/paddleHandler.js';
 import conf from './configuration/conf.js';
 import { ResetHandler } from './handler/resetHandler.js';
-import { Game } from './model/game.js';
+import { Game } from './entity/game/game.js';
 
 const canvas = document.createElement('canvas');
 const ctx = canvas.getContext('2d');
