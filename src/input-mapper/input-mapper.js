@@ -2,18 +2,16 @@ export class InputMapper {
 
     constructor() {
 
-        this.inputContext = undefined;
-        this.mappedKeyInputs = [];
+        this.mappedKeyInputs = new Array();
         this.keyInputPublisher = undefined;
-        this.gameState = undefined;
     }
 
-    handleRawInput(event) {
+    handleRawInput(event, gameState) {
 
         // process key input
         if (event.type === 'keydown') {
 
-            const mappedKeyInput = this.gameState.mapRawInput(event);
+            const mappedKeyInput = gameState.mapRawInput(event);
             
             if (mappedKeyInput) {
                 this.mappedKeyInputs.push(mappedKeyInput);
@@ -38,7 +36,11 @@ export class InputMapper {
         
         const inputSet = this.mergeKeyInputs(mappedKeyInputs);
     
-        this.keyInputPublisher.publish(inputSet);
+        if (inputSet.size > 0) {
+
+            console.log(inputSet.values());
+        }
+        // this.keyInputPublisher.publish(inputSet);
     }
 
     mergeKeyInputs(mappedKeyInputs) {

@@ -1,4 +1,4 @@
-import { MappedInput } from "./mappedInput";
+import { MappedInput } from "./mapped-input.js";
 
 export class KeyInput extends MappedInput {   
     

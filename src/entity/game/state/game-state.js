@@ -1,7 +1,10 @@
 export class GameState {
 
+    constructor(inputContext) {
+        this.inputContext = inputContext;
+    }
 
-    constructor() {
-        this.inputContext;
+    mapRawInput(event) {
+        return this.inputContext.mapRawInput(event);
     }
 }

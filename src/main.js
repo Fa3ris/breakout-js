@@ -7,6 +7,7 @@ import { Game } from './entity/game/game.js';
 
     function init() {
         game = new Game();
+        game.draw();
         main();
     }
 
@@ -14,6 +15,7 @@ import { Game } from './entity/game/game.js';
 
         let cancelId = window.requestAnimationFrame(main);
 
+        game.processInputs();
         game.update();
         game.draw();
 
