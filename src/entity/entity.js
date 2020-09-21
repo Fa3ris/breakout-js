@@ -5,4 +5,8 @@ export class Entity {
         this.state;
         this.stateStack;
     }
+
+    notifyInputSet(inputSet) {
+
+    }
 }

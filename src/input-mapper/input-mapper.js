@@ -1,9 +1,9 @@
 export class InputMapper {
 
-    constructor() {
+    constructor(...observers) {
 
         this.mappedKeyInputs = new Array();
-        this.keyInputPublisher = undefined;
+        this.inputSetObservers = new Array(...observers);
     }
 
     handleRawInput(event, gameState) {
@@ -38,9 +38,11 @@ export class InputMapper {
     
         if (inputSet.size > 0) {
 
-            console.log(inputSet.values());
+            this.inputSetObservers.forEach(observer => {
+                observer.notifyInputSet(inputSet);
+            });
         }
-        // this.keyInputPublisher.publish(inputSet);
+
     }
 
     mergeKeyInputs(mappedKeyInputs) {

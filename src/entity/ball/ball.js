@@ -1,8 +1,10 @@
 import conf from '/src/configuration/conf.js';
+import { Entity } from '../entity.js';
 
-export class Ball {
+export class Ball extends Entity{
 
     constructor(r = 10, color = '#0095DD') {
+        super();
         this.x = conf.WIDTH / 2;
         this.y = conf.HEIGHT - 30;
         this.r = r;
@@ -14,6 +16,11 @@ export class Ball {
     static reset() {
         return new Ball();
     }
+
+    notifyInputSet(inputSet) {
+        console.log("received input", inputSet);
+    }
+
 
     update() {
         this.updateX();

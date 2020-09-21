@@ -4,11 +4,13 @@ import { Paddle } from '../paddle/paddle.js';
 import { InputMapper } from '../../input-mapper/input-mapper.js';
 import { PlayState } from './state/play-state.js';
 import { PlayInputContext } from '../../input-context/play-input-context.js';
+import { Entity } from '../entity.js';
 
-export class Game {
+export class Game extends Entity {
 
     constructor() {
 
+        super();
         this._initEntities();
         this._initRenderer();
         this._initGameState();
@@ -38,7 +40,7 @@ export class Game {
     }
 
     _initInputMapper() {
-        this.inputMapper = new InputMapper();
+        this.inputMapper = new InputMapper(...this.entities, this);
 
         document.addEventListener("keydown", this);
         document.addEventListener("keyup", this);

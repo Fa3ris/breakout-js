@@ -1,9 +1,11 @@
 import conf from '/src/configuration/conf.js';
+import { Entity } from '../entity.js';
 
-export class Paddle {
+export class Paddle extends Entity {
 
     constructor(w = 75, h = 10, color = '#0095DD') {
-
+        super();
+        
         /* dimensions */
         this.w = w;
         this.h = h;
