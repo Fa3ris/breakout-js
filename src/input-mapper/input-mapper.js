@@ -12,7 +12,7 @@ export class InputMapper {
         if (event.type === 'keydown') {
 
             const mappedKeyInput = gameState.mapRawInput(event);
-            
+
             if (mappedKeyInput) {
                 this.mappedKeyInputs.push(mappedKeyInput);
             }
@@ -29,19 +29,19 @@ export class InputMapper {
         this.processKeyInputs();
 
     }
-    
+
     processKeyInputs() {
 
         const mappedKeyInputs = this.mappedKeyInputs.splice(0);
-        
-        const inputSet = this.mergeKeyInputs(mappedKeyInputs);
-    
-        if (inputSet.size > 0) {
 
-            this.inputSetObservers.forEach(observer => {
-                observer.notifyInputSet(inputSet);
-            });
-        }
+        const inputSet = this.mergeKeyInputs(mappedKeyInputs);
+
+
+
+        this.inputSetObservers.forEach(observer => {
+            observer.notifyInputSet(inputSet);
+        });
+
 
     }
 

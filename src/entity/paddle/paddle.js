@@ -1,11 +1,14 @@
 import conf from '/src/configuration/conf.js';
 import { Entity } from '../entity.js';
+import { StopState } from './state/stop-state.js';
 
 export class Paddle extends Entity {
 
     constructor(w = 75, h = 10, color = '#0095DD') {
         super();
-        
+
+        this.state = new StopState(this);
+
         /* dimensions */
         this.w = w;
         this.h = h;
@@ -33,6 +36,18 @@ export class Paddle extends Entity {
 
     static reset() {
         return new Paddle();
+    }
+
+    notifyInputSet(inputSet) {
+        this._processInputSet(inputSet);
+    }
+
+    _processInputSet(inputSet) {
+        const state = this.state.processInputSet(inputSet);
+        
+        if (state) {
+            this.state = state;
+        }
     }
 
     update() {

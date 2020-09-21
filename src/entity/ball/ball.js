@@ -18,7 +18,6 @@ export class Ball extends Entity{
     }
 
     notifyInputSet(inputSet) {
-        console.log("received input", inputSet);
     }
 
 
