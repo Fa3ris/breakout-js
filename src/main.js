@@ -3,13 +3,8 @@ import { Game } from './entity/game/game.js';
 
 (function () {
 
-    let game;
-
-    function init() {
-        game = new Game();
-        game.draw();
-        main();
-    }
+    const game = new Game();
+    main();
 
     function main(timeFrame) {
 
@@ -26,5 +21,4 @@ import { Game } from './entity/game/game.js';
         }
     }
 
-    init();
 })();
