@@ -9,37 +9,35 @@ export class Game {
 
     constructor() {
 
-        this.gameState;
-        this.entities;
-
-        this.initEntities();
-        this.initRenderer();
-        this.initGameState();
-        this.initInputMapper();
+        this._initEntities();
+        this._initRenderer();
+        this._initGameState();
+        this._initInputMapper();
     }
 
-    initRenderer() {
+    _initRenderer() {
         this.canvas = document.createElement('canvas');
-        this.ctx = this.canvas.getContext('2d');
-
         this.canvas.width = conf.WIDTH;
         this.canvas.height = conf.HEIGHT;
+
+        this.ctx = this.canvas.getContext('2d');
+
         document.body.appendChild(this.canvas);
     }
 
-    initEntities() {
+    _initEntities() {
 
-        let ball = new Ball(conf.BALL_RADIUS, conf.BALL_COLOR);
-        let paddle = new Paddle(conf.PADDLE_WIDTH, conf.PADDLE_HEIGHT, conf.PADDLE_COLOR);
+        const ball = new Ball(conf.BALL_RADIUS, conf.BALL_COLOR);
+        const paddle = new Paddle(conf.PADDLE_WIDTH, conf.PADDLE_HEIGHT, conf.PADDLE_COLOR);
 
         this.entities = new Array(ball, paddle);
     }
 
-    initGameState() {
+    _initGameState() {
         this.gameState = new PlayState(new PlayInputContext());
     }
 
-    initInputMapper() {
+    _initInputMapper() {
         this.inputMapper = new InputMapper();
 
         document.addEventListener("keydown", this);
@@ -62,15 +60,8 @@ export class Game {
 
     draw() {
         this.ctx.clearRect(0, 0, conf.WIDTH, conf.HEIGHT);
-
         this.entities.forEach(element => {
             element.draw(this.ctx);
-        }, this);
-    }
-
-    reset() {
-        this.entities.forEach(element => {
-            element.reset();
         });
     }
 
