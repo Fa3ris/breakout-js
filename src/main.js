@@ -10,7 +10,6 @@ import { Game } from './entity/game/game.js';
 
         let cancelId = window.requestAnimationFrame(main);
 
-        game.processInputs();
         game.update();
         game.draw();
 

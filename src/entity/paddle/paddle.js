@@ -34,10 +34,6 @@ export class Paddle extends Entity {
 
     }
 
-    static reset() {
-        return new Paddle();
-    }
-
     handleEvent(event) {
         this._handleEvent(event);
     }
@@ -45,18 +41,6 @@ export class Paddle extends Entity {
     _handleEvent(event) {
         const state = this.state.processEvent(event);
 
-        if (state) {
-            this.state = state;
-        }
-    }
-
-    notifyInputSet(inputSet) {
-        this._processInputSet(inputSet);
-    }
-
-    _processInputSet(inputSet) {
-        const state = this.state.processInputSet(inputSet);
-        
         if (state) {
             this.state = state;
         }

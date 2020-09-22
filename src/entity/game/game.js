@@ -11,13 +11,14 @@ export class Game extends Entity {
     constructor() {
 
         super();
-        this._initEntities();
-        this._initRenderer();
+        this._initCanvas();
         this._initGameState();
+        this._initEntities();
         this._initInputMapper();
+        this._addEventListeners();
     }
 
-    _initRenderer() {
+    _initCanvas() {
         this.canvas = document.createElement('canvas');
         this.canvas.width = conf.WIDTH;
         this.canvas.height = conf.HEIGHT;
@@ -26,41 +27,40 @@ export class Game extends Entity {
 
         document.body.appendChild(this.canvas);
     }
-
-    _initEntities() {
-
-        const ball = new Ball(conf.BALL_RADIUS, conf.BALL_COLOR);
-
-        this.entities = new Array(ball, this._createPaddle());
+    
+    _initGameState() {
+        this.gameState = new PlayState(new PlayInputContext());
     }
 
+    _initEntities() {
+        this.entities = new Array(this._createBall(), this._createPaddle());
+    }
+    
+    _initInputMapper() {
+        this.inputMapper = new InputMapper();
+    }
+
+    _createBall() {
+        return new Ball(conf.BALL_RADIUS, conf.BALL_COLOR);
+    }
+    
     _createPaddle() {
         const paddle = new Paddle(conf.PADDLE_WIDTH, conf.PADDLE_HEIGHT, conf.PADDLE_COLOR);
         this._listenToKeyInput(paddle);
         return paddle;
     }
-
+    
     _listenToKeyInput(entity) {
         document.addEventListener("mapped-keyinput", entity);
     }
 
-    _initGameState() {
-        this.gameState = new PlayState(new PlayInputContext());
-    }
-
-    _initInputMapper() {
-        this.inputMapper = new InputMapper(...this.entities, this);
-
+    _addEventListeners() {
         document.addEventListener("keydown", this);
         document.addEventListener("keyup", this);
     }
 
     handleEvent(event) {
         this.inputMapper.handleRawInput(event, this.gameState);
-    }
-
-    processInputs() {
-        this.inputMapper.processInputs();
     }
 
     update() {
