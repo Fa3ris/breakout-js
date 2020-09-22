@@ -11,6 +11,7 @@ import { Game } from './entity/game/game.js';
         let cancelId = window.requestAnimationFrame(main);
 
         game.update();
+        game.detectCollision();
         game.draw();
 
          if (timeFrame > Math.pow(10, 6)) {

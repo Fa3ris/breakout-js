@@ -33,7 +33,10 @@ export class Game extends Entity {
     }
 
     _initEntities() {
-        this.entities = new Array(this._createBall(), this._createPaddle());
+
+        this.ball = this._createBall()
+        this.paddle = this._createPaddle()
+        this.entities = new Array(this.ball, this.paddle);
     }
     
     _initInputMapper() {
@@ -78,6 +81,10 @@ export class Game extends Entity {
         this.entities.forEach(element => {
             element.draw(this.ctx);
         });
+    }
+
+    detectCollision() {
+        this.ball.detectCollision(this.paddle);
     }
 
 }

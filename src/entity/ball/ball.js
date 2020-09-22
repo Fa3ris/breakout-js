@@ -41,11 +41,24 @@ export class Ball extends Entity{
     }
 
     checkOOB() {
-        if (this.y + this.r + this.dy > conf.HEIGHT) {
+        if (this.isOOB()) {
             if (!(this.state instanceof OutboundState)) {
 
                 this.state = new OutboundState();
             }
+        }
+    }
+
+    isOOB() {
+        return (this.y + this.r + this.dy > conf.HEIGHT);
+    }
+
+    detectCollision(paddle) {
+        if (this.y + this.r > conf.HEIGHT - paddle.h
+        && this.x > paddle.x && this.x < paddle.x + paddle.w) {
+            this.dy = -this.dy;
+            this.y = conf.HEIGHT - paddle.h - this.r;
+
         }
     }
 

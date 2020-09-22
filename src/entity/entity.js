@@ -7,4 +7,10 @@ export class Entity {
     }
 
     handleEvent(event){}
+
+    update() {}
+
+    draw(ctx) {}
+
+    detectCollision() {}
 }
