@@ -6,11 +6,5 @@ export class Entity {
         this.stateStack;
     }
 
-    notifyInputSet(inputSet) {
-
-    }
-
-    handle(event){
-        
-    }
+    handleEvent(event){}
 }

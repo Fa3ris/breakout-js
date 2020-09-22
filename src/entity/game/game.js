@@ -57,9 +57,13 @@ export class Game extends Entity {
     _addEventListeners() {
         document.addEventListener("keydown", this);
         document.addEventListener("keyup", this);
+        document.addEventListener("OOB", this);
     }
 
     handleEvent(event) {
+        if (event.type === 'OOB') {
+            document.location.reload();
+        }
         this.inputMapper.handleRawInput(event, this.gameState);
     }
 

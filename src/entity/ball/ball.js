@@ -1,5 +1,7 @@
 import conf from '/src/configuration/conf.js';
 import { Entity } from '../entity.js';
+import { InboundState } from './state/inbound-state.js';
+import { OutboundState } from './state/outbound-state.js';
 
 export class Ball extends Entity{
 
@@ -11,15 +13,9 @@ export class Ball extends Entity{
         this.dx = 2;
         this.dy = -2;
         this.color = color;
-    }
 
-    static reset() {
-        return new Ball();
+        this.state = new InboundState(this);
     }
-
-    notifyInputSet(inputSet) {
-    }
-
 
     update() {
         this.updateX();
@@ -45,9 +41,11 @@ export class Ball extends Entity{
     }
 
     checkOOB() {
-        if (this.y + this.dy > conf.HEIGHT - this.r) {
-            const e = new CustomEvent('ball-oob');
-            document.dispatchEvent(e);
+        if (this.y + this.r + this.dy > conf.HEIGHT) {
+            if (!(this.state instanceof OutboundState)) {
+
+                this.state = new OutboundState();
+            }
         }
     }
 
