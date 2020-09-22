@@ -30,9 +30,18 @@ export class Game extends Entity {
     _initEntities() {
 
         const ball = new Ball(conf.BALL_RADIUS, conf.BALL_COLOR);
-        const paddle = new Paddle(conf.PADDLE_WIDTH, conf.PADDLE_HEIGHT, conf.PADDLE_COLOR);
 
-        this.entities = new Array(ball, paddle);
+        this.entities = new Array(ball, this._createPaddle());
+    }
+
+    _createPaddle() {
+        const paddle = new Paddle(conf.PADDLE_WIDTH, conf.PADDLE_HEIGHT, conf.PADDLE_COLOR);
+        this._listenToKeyInput(paddle);
+        return paddle;
+    }
+
+    _listenToKeyInput(entity) {
+        document.addEventListener("mapped-keyinput", entity);
     }
 
     _initGameState() {

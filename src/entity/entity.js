@@ -9,4 +9,8 @@ export class Entity {
     notifyInputSet(inputSet) {
 
     }
+
+    handle(event){
+        
+    }
 }

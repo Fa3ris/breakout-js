@@ -38,6 +38,18 @@ export class Paddle extends Entity {
         return new Paddle();
     }
 
+    handleEvent(event) {
+        this._handleEvent(event);
+    }
+
+    _handleEvent(event) {
+        const state = this.state.processEvent(event);
+
+        if (state) {
+            this.state = state;
+        }
+    }
+
     notifyInputSet(inputSet) {
         this._processInputSet(inputSet);
     }

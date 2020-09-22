@@ -12,9 +12,17 @@ export class PlayInputContext extends InputContext {
        if (event.type === 'keydown') {
         
             if (event.code === 'ArrowLeft') {
-                return new KeyInput(event, 'MOVE_PADDLE_LEFT');
+                return new KeyInput(event, 'LEFT_PRESS');
             } else if (event.code === 'ArrowRight') {
-                return new KeyInput(event, 'MOVE_PADDLE_RIGHT');
+                return new KeyInput(event, 'RIGHT_PRESS');
+            }
+
+        } else if (event.type === 'keyup') {
+            
+            if (event.code === 'ArrowLeft') {
+                return new KeyInput(event, 'LEFT_RELEASE');
+            } else if (event.code === 'ArrowRight') {
+                return new KeyInput(event, 'RIGHT_RELEASE');
             }
 
         } else {
