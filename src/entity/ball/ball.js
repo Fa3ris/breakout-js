@@ -2,7 +2,7 @@ import conf from '/src/configuration/conf.js';
 import { Entity } from '../entity.js';
 import { InboundState } from './state/inbound-state.js';
 import { OutboundState } from './state/outbound-state.js';
-import { axisAlignedRectCircleCollision } from '../../collision/geometry.js';
+import { axisAlignedRectCircleCollision, axisAlignedIntersectEdgeCircle } from '../../collision/geometry.js';
 
 export class Ball extends Entity{
 
@@ -42,23 +42,18 @@ export class Ball extends Entity{
     }
 
     checkOOB() {
-        if (this.isOOB()) {
-            if (!(this.state instanceof OutboundState)) {
+        if (!(this.state instanceof OutboundState) && this.isOOB()) {
 
-                this.state = new OutboundState();
-            }
+            this.state = new OutboundState();
         }
     }
 
     isOOB() {
-        return (this.y + this.r + this.dy > conf.HEIGHT);
+
+        return (axisAlignedIntersectEdgeCircle(this.x, conf.HEIGHT, this));
     }
 
     detectCollision(paddle) {
-
-        if (axisAlignedRectCircleCollision(paddle, this)) {
-            console.log('collision detected');
-        }
 
         if (axisAlignedRectCircleCollision(paddle, this)) {
             this.dy = -this.dy;

@@ -24,3 +24,8 @@ export function axisAlignedRectCircleCollision(r, c) {
     return distSquared <= c.r ** 2;
 }
 
+
+export function axisAlignedIntersectEdgeCircle(x, y, c) {
+    return computeDistSquared(x, y, c.x, c.y) <= c.r ** 2;
+}
+
