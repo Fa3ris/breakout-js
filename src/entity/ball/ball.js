@@ -2,6 +2,7 @@ import conf from '/src/configuration/conf.js';
 import { Entity } from '../entity.js';
 import { InboundState } from './state/inbound-state.js';
 import { OutboundState } from './state/outbound-state.js';
+import { axisAlignedRectCircleCollision } from '../../collision/geometry.js';
 
 export class Ball extends Entity{
 
@@ -54,8 +55,12 @@ export class Ball extends Entity{
     }
 
     detectCollision(paddle) {
-        if (this.y + this.r > conf.HEIGHT - paddle.h
-        && this.x > paddle.x && this.x < paddle.x + paddle.w) {
+
+        if (axisAlignedRectCircleCollision(paddle, this)) {
+            console.log('collision detected');
+        }
+
+        if (axisAlignedRectCircleCollision(paddle, this)) {
             this.dy = -this.dy;
             this.y = conf.HEIGHT - paddle.h - this.r;
 
