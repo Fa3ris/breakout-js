@@ -1,7 +1,10 @@
-export class Brick {
+import { Entity } from "../entity.js"
+
+export class Brick extends Entity {
 
 
     constructor(x, y, w, h, color = '#0095DD') {
+        super();
         this.x = x
         this.y = y
         this.w = w

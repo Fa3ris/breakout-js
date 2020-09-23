@@ -5,6 +5,7 @@ import { InputMapper } from '../../input-mapper/input-mapper.js';
 import { PlayState } from './state/play-state.js';
 import { PlayInputContext } from '../../input-context/play-input-context.js';
 import { Entity } from '../entity.js';
+import { Brick } from '../brick/brick.js';
 
 export class Game extends Entity {
 
@@ -36,7 +37,8 @@ export class Game extends Entity {
 
         this.ball = this._createBall()
         this.paddle = this._createPaddle()
-        this.entities = new Array(this.ball, this.paddle);
+        this.bricks = this._createBricks();
+        this.entities = new Array(this.ball, this.paddle, ...this.bricks);
     }
     
     _initInputMapper() {
@@ -51,6 +53,35 @@ export class Game extends Entity {
         const paddle = new Paddle(conf.PADDLE_WIDTH, conf.PADDLE_HEIGHT, conf.PADDLE_COLOR);
         this._listenToKeyInput(paddle);
         return paddle;
+    }
+
+    _createBricks() {
+        const rows = 3;
+        const columns = 6;
+
+        const w = 50;
+        const h = 20;
+        
+        const marginRight = 12;
+        const marginBotton = 10;
+        
+        const vOffset = 10;
+        const hOffset = conf.WIDTH / 2 - (columns * w + (columns - 1) * marginRight) / 2;
+        let x, y;
+
+        const bricks = new Array();
+
+        for (let i = 0; i < columns ; i++) {
+
+            for (let j = 0; j < rows; j++) {
+                x = hOffset + i * (w + marginRight);
+                y = vOffset + j * (h + marginBotton);
+
+                bricks.push(new Brick(x, y, w, h))
+            }
+
+        }
+        return bricks;
     }
     
     _listenToKeyInput(entity) {
