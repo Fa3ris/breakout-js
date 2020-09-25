@@ -116,6 +116,12 @@ export class Game extends Entity {
 
     detectCollision() {
         this.ball.detectCollision(this.paddle);
+        for (const brick of this.bricks) {
+            if (brick.active) {
+
+                this.ball.detectCollision(brick);
+            }
+        }
     }
 
 }

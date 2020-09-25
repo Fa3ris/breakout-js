@@ -3,6 +3,8 @@ import { Entity } from '../entity.js';
 import { InboundState } from './state/inbound-state.js';
 import { OutboundState } from './state/outbound-state.js';
 import { axisAlignedRectCircleCollision, axisAlignedIntersectEdgeCircle } from '../../collision/geometry.js';
+import { Paddle } from '../paddle/paddle.js';
+import { Brick } from '../brick/brick.js';
 
 export class Ball extends Entity{
 
@@ -53,12 +55,21 @@ export class Ball extends Entity{
         return (axisAlignedIntersectEdgeCircle(this.x, conf.HEIGHT, this));
     }
 
-    detectCollision(paddle) {
+    detectCollision(entity) {
 
-        if (axisAlignedRectCircleCollision(paddle, this)) {
-            this.dy = -this.dy;
-            this.y = conf.HEIGHT - paddle.h - this.r;
+        if (entity instanceof Paddle) {
 
+            if (axisAlignedRectCircleCollision(entity, this)) {
+                this.dy = -this.dy;
+                this.y = conf.HEIGHT - entity.h - this.r;
+
+                // TODO calculate collision response
+            }
+        } else if (entity instanceof Brick) {
+            if (axisAlignedRectCircleCollision(entity, this)) {
+                entity.collisionDetected();
+                this.dy = -this.dy;
+            }
         }
     }
 

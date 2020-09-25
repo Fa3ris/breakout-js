@@ -11,17 +11,27 @@ export class Brick extends Entity {
         this.h = h
         this.color = color
         this.active = true;
+        this.lives = 1;
     }
 
-
+    collisionDetected() {
+        if (this.lives > 0) {
+            this.lives--;
+            this.color = '#FFA500'
+        } else {
+            this.active = false;
+        }
+    }
 
     draw(ctx) {
-        ctx.save();
-        ctx.beginPath();
-        ctx.rect(this.x, this.y, this.w, this.h);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-        ctx.closePath();
-        ctx.restore();
+        if (this.active) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.rect(this.x, this.y, this.w, this.h);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+            ctx.closePath();
+            ctx.restore();
+        }
     }
 }
