@@ -16,6 +16,7 @@ export class Ball extends Entity{
         this.vx = 2;
         this.vy = -1.5;
         this.color = color;
+        this.dt = 1;
 
         this.state = new InboundState(this);
     }
@@ -31,7 +32,7 @@ export class Ball extends Entity{
             this.vx = -this.vx;
         }
     
-        this.x = this.x + this.vx;
+        this.x = this.x + this.vx * this.dt;
     }
     
     updateY() {
@@ -40,7 +41,7 @@ export class Ball extends Entity{
             this.vy = -this.vy;
         }
     
-        this.y = this.y + this.vy;
+        this.y = this.y + this.vy * this.dt;
     }
 
     checkOOB() {
@@ -51,8 +52,8 @@ export class Ball extends Entity{
     }
 
     isOOB() {
-
-        return (axisAlignedIntersectEdgeCircle(this.x, conf.HEIGHT, this));
+        return this.y + this.vy + this.r > conf.HEIGHT;
+        // return (axisAlignedIntersectEdgeCircle(this.x, conf.HEIGHT, this));
     }
 
     detectCollision(entity) {

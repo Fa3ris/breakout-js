@@ -1,3 +1,5 @@
+import { Brick } from "../entity/brick/brick.js";
+
 /**
  * squared euclidean distance
  * @param {*} x1 
@@ -48,8 +50,9 @@ export function axisAlignedIntersectEdgeCircle(x, y, c) {
 
 
 export function circleRelativeToRectangle(c, r) {
-    const distX = c.x - (r.x + r.w / 2);
-    const distY = c.y - (r.y + r.h / 2);
+
+    const distX = (r.x + r.w / 2) - c.x;
+    const distY = (r.y + r.h / 2) - c.y;
 
     // const circleRadius = c.r;
     // const rectangleRadius = Math.sqrt(r.w ** 2 + r.h ** 2) / 2;
@@ -61,12 +64,16 @@ export function circleRelativeToRectangle(c, r) {
     const unitY = distY / length;
 
     // velocity of circle relative to velocity of rectangle
-    const relativeVelocityCircleX = c.vx ;
-    const relativeVelocityCircleY = c.vy ;
+    const relativeVelocityCircleX = c.vx - r.vx;
+    const relativeVelocityCircleY = c.vy - r.vy;
 
     const speed  = relativeVelocityCircleX * unitX + relativeVelocityCircleY * unitY;
 
-        c.vx = - 2* speed * unitX;
-        c.vy = - 2* speed * unitY;
+    let impulse = (r instanceof Brick) ? 2 : 3;
+    if (speed > 0) {
+        c.vx = c.vx - impulse * speed * unitX;
+        c.vy = c.vy - impulse * speed * unitY;
+
+    }
 
 }
