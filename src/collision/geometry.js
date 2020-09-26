@@ -9,7 +9,7 @@ import { Brick } from "../entity/brick/brick.js";
  */
 export function computeDistSquared(x1, y1, x2, y2) {
 
-    return  (x2 - x1) ** 2 + (y2 - y1) ** 2
+    return (x2 - x1) ** 2 + (y2 - y1) ** 2
 }
 
 /**
@@ -56,7 +56,7 @@ export function circleRelativeToRectangle(c, r) {
 
     // const circleRadius = c.r;
     // const rectangleRadius = Math.sqrt(r.w ** 2 + r.h ** 2) / 2;
-    
+
     // const radiusSum = circleRadius + rectangleRadius;
 
     const length = Math.sqrt(computeDistSquared(c.x, c.y, (r.x + r.w / 2), (r.y + r.h / 2)));
@@ -67,7 +67,7 @@ export function circleRelativeToRectangle(c, r) {
     const relativeVelocityCircleX = c.vx - r.vx;
     const relativeVelocityCircleY = c.vy - r.vy;
 
-    const speed  = relativeVelocityCircleX * unitX + relativeVelocityCircleY * unitY;
+    const speed = relativeVelocityCircleX * unitX + relativeVelocityCircleY * unitY;
 
     let impulse = (r instanceof Brick) ? 2 : 3;
     if (speed > 0) {
@@ -75,5 +75,64 @@ export function circleRelativeToRectangle(c, r) {
         c.vy = c.vy - impulse * speed * unitY;
 
     }
+
+}
+
+export function collisionCircleRectangle(c, r) {
+
+    return circleInRectangle(c, r)
+        || leftIntersect(c, r)
+        || topIntersect(c, r)
+        || rightIntersect(c, r)
+        || bottomIntersect(c, r);
+}
+
+export function circleInRectangle(c, r) {
+
+    const res = 0 <= (c.x - r.x) && (c.x - r.x) <= r.w && 0 <= (c.y - r.y) && (c.y - r.y) <= r.h;
+    if (res) {
+        console.log('not idea what to do');
+    }
+    return res;
+}
+
+export function leftIntersect(c, r) {
+
+    const res = (c.x - r.x) ** 2 <= c.r ** 2 && c.y >= r.y && c.y <= r.y + r.h;
+    if (res) {
+        c.x = r.x - c.r;
+        c.vx = -c.vx;
+    }
+    return res;
+}
+
+export function topIntersect(c, r) {
+
+    const res = (c.y - r.y) ** 2 <= c.r ** 2 && c.x >= r.x && c.x <= r.x + r.w;
+    if (res) {
+        c.y = r.y - c.r
+        c.vy = -c.vy
+    }
+    return res;
+
+}
+
+export function rightIntersect(c, r) {
+    const res = (c.x - r.x - r.w) ** 2 <= c.r ** 2 && c.y >= r.y && c.y <= r.y + r.h;
+    if (res) {
+        c.x = r.x + r.w + c.r;
+        c.vx = -c.vx;
+    }
+    return res;
+
+}
+
+export function bottomIntersect(c, r) {
+    const res = (c.y - r.y - r.h) ** 2 <= c.r ** 2 && c.x >= r.x && c.x <= r.x + r.w;
+    if (res) {
+        c.y = r.y + r.h + c.r;
+        c.vy = -c.vy
+    }
+    return res;
 
 }

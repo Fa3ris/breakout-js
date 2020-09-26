@@ -7,6 +7,7 @@ import { PlayInputContext } from '../../input-context/play-input-context.js';
 import { Entity } from '../entity.js';
 import { Brick } from '../brick/brick.js';
 import { Score } from '../score/score.js';
+import { collisionCircleRectangle } from '../../collision/geometry.js';
 
 export class Game extends Entity {
 
@@ -117,11 +118,16 @@ export class Game extends Entity {
     }
 
     detectCollision() {
-        this.ball.detectCollision(this.paddle);
+        // this.ball.detectCollision(this.paddle);
+        collisionCircleRectangle(this.ball, this.paddle)
+
         for (const brick of this.bricks) {
             if (brick.active) {
-
-                this.ball.detectCollision(brick);
+                const collision = collisionCircleRectangle(this.ball, brick);
+                if (collision) {
+                    brick.collisionDetected();
+                }
+                // this.ball.detectCollision(brick);
             }
         }
     }
