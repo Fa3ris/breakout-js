@@ -46,3 +46,28 @@ export function axisAlignedIntersectEdgeCircle(x, y, c) {
     return computeDistSquared(x, y, c.x, c.y) <= c.r ** 2;
 }
 
+
+export function circleRelativeToRectangle(c, r) {
+    const distX = c.x - (r.x + r.w / 2);
+    const distY = c.y - (r.y + r.h / 2);
+
+    // const circleRadius = c.r;
+    // const rectangleRadius = Math.sqrt(r.w ** 2 + r.h ** 2) / 2;
+    
+    // const radiusSum = circleRadius + rectangleRadius;
+
+    const length = computeDistSquared(c.x, c.y, (r.x + r.w / 2), (r.y + r.h / 2));
+    const unitX = distX / length;
+    const unitY = distY / length;
+
+    // velocity of circle relative to velocity of rectangle
+    const relativeVelocityCircleX = c.vx - r.vx;
+    const relativeVelocityCircleY = c.vy - r.vy;
+
+    const speed  = relativeVelocityCircleX * unitX + relativeVelocityCircleY * unitY;
+
+    if (speed > 0) {
+        c.vx = c.vx - speed * unitX;
+        c.vy = c.vy - speed * unitY;
+    }
+}
