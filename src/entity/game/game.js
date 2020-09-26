@@ -6,6 +6,7 @@ import { PlayState } from './state/play-state.js';
 import { PlayInputContext } from '../../input-context/play-input-context.js';
 import { Entity } from '../entity.js';
 import { Brick } from '../brick/brick.js';
+import { Score } from '../score/score.js';
 
 export class Game extends Entity {
 
@@ -38,7 +39,8 @@ export class Game extends Entity {
         this.ball = this._createBall()
         this.paddle = this._createPaddle()
         this.bricks = this._createBricks();
-        this.entities = new Array(this.ball, this.paddle, ...this.bricks);
+        this.score = new Score();
+        this.entities = new Array(this.ball, this.paddle, this.score, ...this.bricks);
     }
     
     _initInputMapper() {
