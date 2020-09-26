@@ -26,7 +26,8 @@ export class Paddle extends Entity {
         this.force = 1;
 
         this.a = 0;
-        this.v = 0;
+        this.vx = 0;
+        this.vy = 0;
 
         this.dt = 1;
 
@@ -64,21 +65,21 @@ export class Paddle extends Entity {
     }
 
     updateVelocity() {
-        this.v = this.a * this.dt + this.v;
-        this.v = this.friction * this.v;
+        this.vx = this.a * this.dt + this.vx;
+        this.vx = this.friction * this.vx;
     }
 
     updatePosition() {
-        this.x = this.v * this.dt + this.x;
+        this.x = this.vx * this.dt + this.x;
     }
 
     checkOOB() {
         if (this.x < 0) {
             this.x = 0;
-            this.v = 0;
+            this.vx = 0;
         } else if (this.x > (conf.WIDTH - this.w)) {
             this.x = conf.WIDTH - this.w;
-            this.v = 0;
+            this.vx = 0;
         }
     }
 

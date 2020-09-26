@@ -2,7 +2,7 @@ import conf from '/src/configuration/conf.js';
 import { Entity } from '../entity.js';
 import { InboundState } from './state/inbound-state.js';
 import { OutboundState } from './state/outbound-state.js';
-import { axisAlignedRectCircleCollision, axisAlignedIntersectEdgeCircle } from '../../collision/geometry.js';
+import { axisAlignedRectCircleCollision, axisAlignedIntersectEdgeCircle, circleRelativeToRectangle } from '../../collision/geometry.js';
 import { Paddle } from '../paddle/paddle.js';
 import { Brick } from '../brick/brick.js';
 
@@ -13,8 +13,8 @@ export class Ball extends Entity{
         this.x = conf.WIDTH / 2;
         this.y = conf.HEIGHT - 30;
         this.r = r;
-        this.dx = 2;
-        this.dy = -2;
+        this.vx = 2;
+        this.vy = -1.5;
         this.color = color;
 
         this.state = new InboundState(this);
@@ -27,20 +27,20 @@ export class Ball extends Entity{
     }
 
     updateX() {
-        if (this.x + this.dx < 0 + this.r || this.x + this.dx > conf.WIDTH - this.r) {
-            this.dx = -this.dx;
+        if (this.x + this.vx < 0 + this.r || this.x + this.vx > conf.WIDTH - this.r) {
+            this.vx = -this.vx;
         }
     
-        this.x = this.x + this.dx;
+        this.x = this.x + this.vx;
     }
     
     updateY() {
         
-        if (this.y + this.dy < 0 + this.r) {
-            this.dy = -this.dy;
+        if (this.y + this.vy < 0 + this.r) {
+            this.vy = -this.vy;
         }
     
-        this.y = this.y + this.dy;
+        this.y = this.y + this.vy;
     }
 
     checkOOB() {
@@ -60,15 +60,17 @@ export class Ball extends Entity{
         if (entity instanceof Paddle) {
 
             if (axisAlignedRectCircleCollision(entity, this)) {
-                this.dy = -this.dy;
-                this.y = conf.HEIGHT - entity.h - this.r;
+                circleRelativeToRectangle(this, entity);
+                // this.vy = -this.vy;
+                // this.y = conf.HEIGHT - entity.h - this.r;
 
                 // TODO calculate collision response
             }
         } else if (entity instanceof Brick) {
             if (axisAlignedRectCircleCollision(entity, this)) {
                 entity.collisionDetected();
-                this.dy = -this.dy;
+                circleRelativeToRectangle(this, entity);
+                // this.vy = -this.vy;
             }
         }
     }

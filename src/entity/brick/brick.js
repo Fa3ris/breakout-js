@@ -12,6 +12,8 @@ export class Brick extends Entity {
         this.color = color
         this.active = true;
         this.lives = 1;
+        this.vx = 0;
+        this.vy = 0;
     }
 
     collisionDetected() {
